@@ -3,7 +3,7 @@
 PortSystem                  1.0
 PortGroup                   golang 1.0
 
-go.setup                    github.com/influxdata/telegraf 1.18.1 v
+go.setup                    github.com/influxdata/telegraf 1.19.1 v
 revision                    0
 
 homepage                    https://docs.influxdata.com/telegraf
@@ -24,9 +24,11 @@ categories                  sysutils
 platforms                   darwin
 license                     MIT
 
-checksums                   rmd160  4b6c0a8f7b528bf7f7c018d4d9059dc64ee314cc \
-                            sha256  5e94b111dff0a3d4da19539514a7dbe62cf1964f3976f92398cd2820bfa90c3f \
-                            size    2638921
+checksums                   rmd160  8c29b5d66113f5d2276288c69df20ea605518c02 \
+                            sha256  cec43bb0acfff8b4c963ffec6e3eab44ffb52c8f34e6a697207977cfd05882aa \
+                            size    2836676
+
+github.tarball_from         archive
 
 maintainers                 {gmail.com:herby.gillot @herbygillot} \
                             openmaintainer

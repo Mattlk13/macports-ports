@@ -1,9 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
+PortGroup           boost 1.0
 
 name                libreoffice
-version             7.1.2.2
+version             7.1.5.1
 revision            0
 categories          office aqua
 license             {LGPL-3 MPL-1.1}
@@ -42,17 +43,17 @@ distfiles           ${main_distfile}:main \
                     f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf:opens
 
 checksums           libreoffice-${version}.tar.xz \
-                    rmd160  54acbd1f0aa89e93bc24e29033f7f461ba407a86 \
-                    sha256  6ba58991f626dc42c75ca2c28f91915ffabae18ba5a5fba5344ed7004eba29f8 \
-                    size    243806936 \
+                    rmd160  3959a4707bc652d7edcc41d308087a49c9875dca \
+                    sha256  e5896f533852395f4758fe3fed824ae8f929b6e75b7eca602139a7a2dc94af90 \
+                    size    244309736 \
                     libreoffice-dictionaries-${version}.tar.xz \
-                    rmd160  d79994f69f949161bfc5881e0b0926bbec44f4e3 \
-                    sha256  84490f0f68dfd6f6efd6e5d551122506bd52bcf11b49d9496c78402290ab3202 \
-                    size    47236536 \
+                    rmd160  7fb292b16809f257c378b0dc28a6e103a4985e69 \
+                    sha256  e488d39e5b5b2d8a18d32dd1d43b7ca92cd940d22a4f1b3b3038edb2b2b2853e \
+                    size    47964516 \
                     libreoffice-translations-${version}.tar.xz \
-                    rmd160  749ca051e35fc84c23f29f65fb23655989388845 \
-                    sha256  a724be1fb8895ad14d1e1e6558d1bb65037d1f15858bd48228ad0cb66828a2c8 \
-                    size    184782132 \
+                    rmd160  0f1930c5c676499051f343c837d7d1b196f85dc5 \
+                    sha256  0d2356fc78928d047381a78961369ed7ca548cb33a887d332c7fc77efeaac165 \
+                    size    184947664 \
                     dtoa-20180411.tgz \
                     rmd160  8d1bba737d8b58c3fb09533f35af2a03e05d9849 \
                     sha256  0082d0684f7db6f62361b76c4b7faba19e0c7ce5cb8e36c4b65fea8281e711b4 \
@@ -70,7 +71,6 @@ depends_build-append \
     port:flex \
     port:gettext \
     port:gperf \
-    port:intltool \
     port:mesa \
     port:pkgconfig \
     port:ucpp \
@@ -78,7 +78,6 @@ depends_build-append \
 depends_lib-append  \
     port:apr \
     port:apr-util \
-    port:boost \
     port:box2d \
     port:bzip2 \
     port:clucene \
@@ -138,15 +137,20 @@ depends_lib-append  \
     port:xz \
     port:zlib
 # Try to keep this in sync with the Python portgroup.
-set pyver 3.8
-set python_version [string index ${pyver} 0][string index ${pyver} end]
+set pyver 3.9
+set python_version [join [split ${pyver} "."] ""]
 depends_run-append \
     port:python${python_version} \
     port:py${python_version}-lxml
 
-if {${os.major} < 14} {
+if {${os.platform} eq "darwin" && ${os.major} < 19} {
+    known_fail yes
     pre-fetch {
-        ui_error "${name} @${version} requires OS X 10.10 or later."
+        ui_error "Building ${name} @${version} requires macOS 10.15 or later."
+        ui_error ""
+        ui_error "Consider downloading a version from LibreOffice's website:"
+        ui_error "https://www.libreoffice.org/download/download/"
+        ui_error ""
         return -code error "incompatible OS X version"
     }
 }
@@ -162,7 +166,8 @@ pre-configure {
     system "cd ${worksrcpath} && env NOCONFIGURE=1 ./autogen.sh"
 }
 
-use_xcode           yes
+use_xcode               yes
+compiler.cxx_standard   2017
 # CMS_NO_REGISTER_KEYWORD required for C++17 or newer compiler.
 # PYTHON_CFLAGS and PYTHON_LIBS have to be non-empty
 configure.env-append  \
@@ -204,6 +209,7 @@ configure.args-append  \
     --enable-readonly-installset \
     --enable-release-build \
     --enable-symbols \
+    --with-boost=[boost::install_area] \
     --with-external-tar=${distpath} \
     --with-myspell-dicts \
     --with-package-version=${version} \

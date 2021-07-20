@@ -4,8 +4,8 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-spyder-kernels
-version             2.0.1
-revision            1
+version             2.0.5
+revision            0
 epoch               1
 
 categories-append   devel
@@ -19,20 +19,16 @@ long_description    ${description}
 
 homepage            https://github.com/spyder-ide/spyder-kernels
 
-checksums           rmd160  834da6793e615e1991727dc2dd9b852329c4a0c4 \
-                    sha256  d69ca78e10b6783b506139668847368c7ace6676a771d75efd826d239597c1e9 \
-                    size    63544
+checksums           rmd160  1aa8e566b1aff0de4a7b7e04c2f77bb853e36adc \
+                    sha256  4428a9aa8f94987f366fad3afda427933a131cca5fd9c361c8553c564eae011e \
+                    size    64418
 
-python.versions     27 35 36 37 38 39
+python.versions     36 37 38 39
 
 if {${name} ne ${subport}} {
     if {${python.version} in "36 37 38"} {
         conflicts   py${python.version}-spyder-kernels-devel
     }
-
-    # remove version cap on decorator
-    patchfiles-append \
-                    patch-setup.py.diff
 
     depends_build-append \
                     port:py${python.version}-setuptools

@@ -6,14 +6,14 @@ PortGroup           github                      1.0
 PortGroup           compiler_blacklist_versions 1.0
 
 name                py-thinc
-# Don't upgrade past py-spaCy's highest supported version.
-version             8.0.3
+# Don't upgrade past py-spaCy's highest supported version (currently 8.1.0).
+version             8.0.7
 revision            0
 github.setup        explosion thinc ${version} v
 
-checksums           rmd160  7cd4e5e3c1de3b182d90b06ee981ebd0ef1561ff \
-                    sha256  2bec592f7af923a81a83709cdf319c8d778fe1e8a3da77c97f23c2cfd3079a87 \
-                    size    1326637
+checksums           rmd160  6a41dc61bd0218095f320193911890ba6e411ade \
+                    sha256  b12b96cd73993f849f9e2b9316e73b0a0f39e16023dc0cf4f62f377c95b01d4d \
+                    size    1329502
 
 platforms           darwin
 supported_archs     x86_64
@@ -23,7 +23,7 @@ license             MIT
 maintainers         {jonesc @cjones051073} openmaintainer
 
 description         spaCy's Machine Learning library for NLP in Python
-long_description    ${description}
+long_description    {*}${description}
 
 # Exclude anything with non-numbers
 github.livecheck.regex {([0-9.]+)}

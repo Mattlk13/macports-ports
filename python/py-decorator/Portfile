@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-decorator
-version             5.0.6
+version             5.0.9
 revision            0
 categories-append   devel
 platforms           darwin
@@ -20,9 +20,9 @@ long_description    ${description}
 
 homepage            https://github.com/micheles/decorator
 
-checksums           rmd160  f9884b1d6b1899ae31342393d48717f18b25ac92 \
-                    sha256  f2e71efb39412bfd23d878e896a51b07744f2e2250b2e87d158e76828c5ae202 \
-                    size    33937
+checksums           rmd160  a3d128c927b0c228b0c183fc10e908fd0832e638 \
+                    sha256  72ecfba4320a893c53f9706bebb2d55c270c1e51a28789361aa93e4a21319ed5 \
+                    size    34544
 
 if {${name} ne ${subport}} {
     depends_build-append \

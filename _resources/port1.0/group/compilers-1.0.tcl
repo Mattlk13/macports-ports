@@ -81,15 +81,8 @@ default compilers.allow_arguments_mismatch no
 if {${os.major} < 10} {
     # see https://trac.macports.org/ticket/57135
     set compilers.gcc_default gcc7
-} elseif {${os.major} < 11} {
-    set compilers.gcc_default gcc8
 } else {
-    # Currently only gcc-devel works on arm machines
-    if { ${os.major} >= 20 && ${os.arch} eq "arm" } {
-        set compilers.gcc_default gccdevel
-    } else {
-        set compilers.gcc_default gcc10
-    }
+    set compilers.gcc_default gcc11
 }
 
 set compilers.list {cc cxx cpp objc fc f77 f90}
@@ -97,18 +90,22 @@ set compilers.list {cc cxx cpp objc fc f77 f90}
 # build database of gcc compiler attributes
 # Should match those in compilers/gcc_compilers.tcl
 if { ${os.arch} eq "arm" } {
-    set gcc_versions {devel}
+    set gcc_versions {10 11 devel}
 } else {
     set gcc_versions {}
     if { ${os.major} < 20 } {
         lappend gcc_versions 5 6 7
     }
     if { ${os.major} >= 10 } {
-        lappend gcc_versions 8
+        lappend gcc_versions 8 9 10 11 devel
     }
-    if { ${os.major} >= 11 } {
-        lappend gcc_versions 9 10 devel
-    }
+}
+# GCC version providing the primary runtime
+# Note settings here *must* match those in the lang/libgcc port.
+if { ${os.major} < 10 } {
+    set gcc_main_version 7
+} else {
+    set gcc_main_version 11
 }
 ui_debug "GCC versions for Darwin ${os.major} ${os.arch} - ${gcc_versions}"
 foreach ver ${gcc_versions} {
@@ -128,8 +125,12 @@ foreach ver ${gcc_versions} {
             set cdb(gcc$ver_nodot,dependsl) "path:share/doc/libgcc/README:libgcc port:libgcc45"
         } elseif {[vercmp ${ver} 7] < 0} {
             set cdb(gcc$ver_nodot,dependsl) "path:share/doc/libgcc/README:libgcc port:libgcc6"
-        } else {
+        } elseif {[vercmp ${ver} ${gcc_main_version}] < 0}  {
             set cdb(gcc$ver_nodot,dependsl) "path:share/doc/libgcc/README:libgcc port:libgcc${ver_nodot}"
+        } else {
+            # Do not depend directly on primary runtime port, as implied by libgcc
+            # and doing so prevents libgcc-devel being used as an alternative.
+            set cdb(gcc$ver_nodot,dependsl) "path:share/doc/libgcc/README:libgcc"
         }
         set cdb(gcc$ver_nodot,dependsa) gcc$ver_nodot
     }
@@ -149,10 +150,8 @@ foreach ver ${gcc_versions} {
 
 # build database of clang compiler attributes
 # Should match those in compilers/clang_compilers.tcl
-if { ${os.arch} eq "arm" } {
-    set clang_versions {11 devel}
-} else {
-    set clang_versions {}
+set clang_versions {}
+if { ${os.arch} ne "arm" } {
     if {${os.major} < 16} {
         if {${os.major} < 9} {
             lappend clang_versions 3.3
@@ -169,8 +168,15 @@ if { ${os.arch} eq "arm" } {
         if { ${os.major} < 20 } {
             lappend clang_versions 8.0
         }
-        lappend clang_versions 9.0 10 11 devel
+        lappend clang_versions 9.0 10
     }
+}
+if { ${os.major} >= 10 } {
+    lappend clang_versions 11
+    if { ${os.major} >= 11 } {
+        lappend clang_versions 12
+    }
+    lappend clang_versions devel
 }
 ui_debug "Clang versions for Darwin ${os.major} ${os.arch} - ${clang_versions}"
 foreach ver ${clang_versions} {
@@ -775,7 +781,7 @@ proc compilers::add_fortran_legacy_support {} {
         } else {
             set fortran_compiler    [fortran_variant_name]
         }
-        if {${fortran_compiler} in "gcc10 gccdevel"} {
+        if {${fortran_compiler} in "gcc11 gcc10 gccdevel"} {
             configure.fflags-delete     -fallow-argument-mismatch
             configure.fcflags-delete    -fallow-argument-mismatch
             configure.f90flags-delete   -fallow-argument-mismatch

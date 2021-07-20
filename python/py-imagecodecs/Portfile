@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-imagecodecs
-version             2021.3.31
+version             2021.6.8
 revision            0
 
 categories-append   graphics
@@ -17,9 +17,9 @@ long_description    {*}${description}
 
 homepage            https://www.lfd.uci.edu/~gohlke/
 
-checksums           rmd160  4bf34307dbebef6d48d8d5c1021f0909e4fba837 \
-                    sha256  20de74033058105ef07218bf7ab2ec550c05a3e6bd5581d9daa6346e16d5f760 \
-                    size    9581950
+checksums           rmd160  503747db032d6f9881d11697c0d7e2f586f46b34 \
+                    sha256  4b2799ee39a3bc465d2068b70dc6eb643aa4817435d3ef38cc087f5e863dc9da \
+                    size    10181378
 
 python.versions     37 38 39
 
@@ -32,6 +32,7 @@ if {${name} ne ${subport}} {
                     port:brotli \
                     port:brunsli \
                     port:bzip2 \
+                    port:cfitsio \
                     port:charls \
                     port:giflib5 \
                     path:include/turbojpeg.h:libjpeg-turbo \
@@ -52,4 +53,6 @@ if {${name} ne ${subport}} {
         reinplace "s|%PREFIX%|${prefix}|g" \
             ${worksrcpath}/setup.py
     }
+
+    livecheck.type  none
 }

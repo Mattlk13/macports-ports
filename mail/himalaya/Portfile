@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           cargo 1.0
 
-github.setup        soywod himalaya 0.2.5 v
+github.setup        soywod himalaya 0.4.0 v
 revision            0
 
 description         Minimalist CLI email client, written in Rust
@@ -29,13 +29,15 @@ installs_libs       no
 
 build.pre_args      --release -v -j${build.jobs}
 
-checksums           rmd160  f36a0e45227e9cac5e35d99a16d25d38544a4135 \
-                    sha256  89512c00c65c202d4a99d97e755c24c83a130d32168d78ac11c2dba38e257707 \
-                    size    38921
+checksums           rmd160  5b42645383cbcdc078c8b2d9deba1b0f1b620331 \
+                    sha256  07359cc9827ecda8052a23428f642e06da5a899c40fe887acc5a880c76676131 \
+                    size    49693
 
 set vimfiles_path   ${prefix}/share/vim/vimfiles
 
 depends_run         path:bin/vim:vim
+
+github.tarball_from archive
 
 destroot {
     xinstall -m 755 \
@@ -44,7 +46,7 @@ destroot {
 
     xinstall -d ${destroot}${vimfiles_path}
 
-    foreach vimdir {autoload doc ftplugin plugin syntax} {
+    foreach vimdir {autoload doc ftplugin lua plugin syntax} {
         copy ${worksrcpath}/vim/${vimdir} ${destroot}${vimfiles_path}/
     }
 }

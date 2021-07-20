@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/argoproj/argo-cd 2.0.1 v
+go.setup            github.com/argoproj/argo-cd 2.0.4 v
 name                argocd
 revision            0
 
@@ -23,9 +23,9 @@ license             Apache-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  db715d6a6492c92a1aff8cfd5085831c8864568e \
-                    sha256  a9383a458e034afb045c462e4c53e7ae69efd6d33f5938dda96ee0e49a11da05 \
-                    size    12533782
+checksums           rmd160  9299cf5eaf00200f1d9fa07d8b711b8a5e62bac2 \
+                    sha256  4877df253da2d6137daf38c9d4592d78e68a3677c67805fcefe77ad5218d3567 \
+                    size    12535924
 
 depends_build-append port:packr1
 
@@ -38,6 +38,8 @@ build.args-append       cli-local
 
 installs_libs       no
 use_parallel_build  no
+
+github.tarball_from archive
 
 post-patch {
     reinplace {s|build -v -i|build -v|g} ${worksrcpath}/Makefile

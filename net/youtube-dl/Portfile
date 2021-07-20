@@ -4,11 +4,11 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           python 1.0
 
-github.setup        ytdl-org youtube-dl 2021.04.17
+github.setup        ytdl-org youtube-dl 2021.06.06
 revision            0
-checksums           rmd160  ecb912c49f04d1ecc11d2adb3441b381467ab656 \
-                    sha256  75eff59a6a81708e1bf075f1a46cea4058694c286f154a35ee7d6dd760da0e42 \
-                    size    3331721
+checksums           rmd160  24478101dbb1a9f5b634ed872e407c4e8d088041 \
+                    sha256  3ccb0e4db9fd172338ed1c32bae0be2f716458dca4143e55732ff55260b20ac3 \
+                    size    3336227
 
 categories          net
 platforms           darwin

@@ -1,9 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
-PortGroup           github 1.0
+PortGroup           golang 1.0
 
-github.setup        kubernetes minikube 1.19.0 v
+go.setup            github.com/kubernetes/minikube 1.22.0 v
+go.package          k8s.io/minikube
 revision            0
 
 homepage            https://minikube.sigs.k8s.io
@@ -16,46 +17,44 @@ long_description    Minikube runs a single-node Kubernetes cluster inside a VM \
 
 categories          sysutils
 platforms           darwin
-supported_archs     x86_64
 license             Apache-2
+installs_libs       no
 
 maintainers         {lbschenkel @lbschenkel} \
                     {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-github.tarball_from releases
+github.tarball_from archive
 
-distfiles           minikube-darwin-amd64
-checksums           minikube-darwin-amd64 \
-                    rmd160  b2f9a8eca7e4cc2634ddd5b1b4ec0f7bdf4e5b2a \
-                    sha256  8111d393424aaf141ad4dc6c520979ca6e1ba39249d07df3979c9a6152adf9e6 \
-                    size    62564032
-dist_subdir         ${name}/${version}
+checksums           rmd160  9f402d7ef36436046879b9241bae2b4b768b767b \
+                    sha256  5db3b43a36f477d5b41435b3aaeaf390f91b820f99df2a52b2f90938bd1753c2 \
+                    size    86231794
 
-depends_lib         path:${prefix}/bin/kubectl:kubectl-1.20
-use_configure       no
+depends_build-append \
+                    port:go-bindata
+
+depends_run         path:${prefix}/bin/kubectl:kubectl-1.21
 
 default_variants    +hyperkit
 
-variant hyperkit description {Install Hyperkit driver} {
-    distfiles-append    docker-machine-driver-hyperkit
-    checksums-append    docker-machine-driver-hyperkit \
-                        rmd160  bfb235999b84e74c332f142325bb07fe956ea3bc \
-                        sha256  da1fb9ce4d35ecfedbab78fcdf3155d837ea1511ad5b1c050b8cf4a5f13bd4d4 \
-                        size    11029556
-}
+# Allow Go to fetch deps at build time
+build.env-delete    GO111MODULE=off GOPROXY=off
+build.cmd           make
+build.target        ${name}-${goos}-${goarch}
 
-build {
+variant hyperkit description {Install Hyperkit driver} {
+    build.target-append \
+                    docker-machine-driver-hyperkit
 }
 
 destroot {
-    xinstall ${distpath}/minikube-darwin-amd64 \
-             ${destroot}${prefix}/bin/minikube
+    xinstall ${worksrcpath}/out/${name}-${goos}-${goarch} \
+             ${destroot}${prefix}/bin/${name}
     if {[variant_isset hyperkit]} {
-        xinstall -m 4755 ${distpath}/docker-machine-driver-hyperkit \
-                         ${destroot}${prefix}/bin/
+        xinstall -m 4755 \
+            ${worksrcpath}/out/docker-machine-driver-hyperkit \
+            ${destroot}${prefix}/bin/
     }
 }
-
 
 github.livecheck.regex  {([\d\.]+)}

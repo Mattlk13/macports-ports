@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                1password-cli
-version             1.9.0
+version             1.11.0
 revision            0
 
 categories          security
@@ -36,9 +36,9 @@ extract.suffix      .pkg
 master_sites        https://cache.agilebits.com/dist/1P/op/pkg/v${version}/
 distfiles           ${archive}${version}${extract.suffix}
 
-checksums           rmd160  f5f0a51fc64c0b025f97ecf77a75255915cce051 \
-                    sha256  d250464386c32b90039d8c7f579a5c60e2b42d4124ce15d90558bdcd5de9f4c3 \
-                    size    4727157
+checksums           rmd160  b9fb13fa21cec471cffdf1fee4a06dc9c37674a2 \
+                    sha256  d4548f2d058372b61e8dd6054513213aaffdcad43c82da92715e22ec0ce8d7ec \
+                    size    4179065
 
 # Pre-built binary
 use_configure       no

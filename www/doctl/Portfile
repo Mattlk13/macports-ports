@@ -3,12 +3,12 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/digitalocean/doctl 1.59.0 v
+go.setup            github.com/digitalocean/doctl 1.62.0 v
 revision            0
 
-checksums           rmd160  7f84c681571b357cce17a8c26515865644e1bdea \
-                    sha256  c90b1ae69e43ecb795596519b8feb5cc1d55523c91b0337916fdb563337ae753 \
-                    size    5199147
+checksums           rmd160  19d710a86afa5ae136fd3184ce035b17d1bb1ff6 \
+                    sha256  5b3f63aec66d379fc3696e4c8e85af8663e72d3122b05ca4cf99d70325e9290a \
+                    size    5207364
 
 categories          www devel
 platforms           darwin

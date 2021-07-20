@@ -3,11 +3,8 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/schollz/croc 9.1.0 v
+go.setup            github.com/schollz/croc 9.2.0 v
 revision            0
-
-categories          net sysutils
-license             MIT
 
 homepage            https://schollz.com/blog/croc6
 
@@ -29,16 +26,20 @@ long_description    croc is a tool that allows any two computers to simply \
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
+categories          net sysutils
+license             MIT
 installs_libs       no
 
 destroot {
     xinstall -m 755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
 }
 
+github.tarball_from archive
+
 checksums           ${distname}${extract.suffix} \
-                        rmd160  2199830191429eb6682154eafacb3cb0f1e9465e \
-                        sha256  3fd9d6d89e9cfb3677146ce26457b88ecc4ea4e111bfe9727595dad25aaab2b2 \
-                        size    501633
+                        rmd160  c54ccf28b4bcfdec1011f1f314ecc1de7f4c246c \
+                        sha256  e8f72be7f3c26a1c4ed00c3ebb222d2959cd6c7f7f74a097a556b56e6a24ba96 \
+                        size    502565
 
 go.vendors          gopkg.in/yaml.v3 \
                         repo    github.com/go-yaml/yaml \
@@ -64,25 +65,30 @@ go.vendors          gopkg.in/yaml.v3 \
                         sha256  6b2d69df22b5ba1634bc6730c3f03404db499536a96c48b8016da80ced804450 \
                         size    8356058 \
                     golang.org/x/term \
-                        lock    72f3dc4e9b72 \
-                        rmd160  1427b5158f35c3f52a9db9c627d0234c15883561 \
-                        sha256  4cd03aeed351110019c384f469fde517b7e506285bd82147611d9d461ba0b30b \
-                        size    15007 \
+                        lock    6886f2dfbf5b \
+                        rmd160  8688e7b350892399f2918c70c87435016c64c572 \
+                        sha256  e52745c19f7ebe30ab78db8af43216b6795928089a433925ef3ebef0eaad98f3 \
+                        size    14938 \
                     golang.org/x/sys \
-                        lock    66c3f260301c \
-                        rmd160  15f7519f712599b1fd2631bb1cd85bd15193be88 \
-                        sha256  cdea4d0958f612ac3b6f511b6609ff55b40adbad5725d53c930d046830c88a32 \
-                        size    1219425 \
+                        lock    59db8d763f22 \
+                        rmd160  63248ba7d48dda77b6f45a9aaa7106daa979ae64 \
+                        sha256  6032da52e882ea2c271c95ca659a2f4603d2d3fd3f89e123bdd6271e16bde14f \
+                        size    1201655 \
                     golang.org/x/net \
-                        lock    e915ea6b2b7d \
-                        rmd160  c50582099618a5484b843bd9ec9951d7faa10016 \
-                        sha256  39758186bcf8fab55e659434e0b9e3a7c31445e4be0c6ad4de02044876d9ac57 \
-                        size    1249423 \
+                        lock    04defd469f4e \
+                        rmd160  47092b053c171103a372f7bf3fa3cce9e8364f44 \
+                        sha256  f107dd06bb11819efefb6ec8181773c33720d7259279817c0894fdb4114dd7d6 \
+                        size    1252145 \
                     golang.org/x/crypto \
-                        lock    4f45737414dc \
-                        rmd160  bcb326a0dae5b4b3e09c9813124af96df85c7088 \
-                        sha256  415ceaf7f4f678acdf9eeab47f7faf96a501e98d9f3eebe263d7c532d32af3e7 \
-                        size    1726572 \
+                        lock    5ff15b29337e \
+                        rmd160  559899a81d2805a0b99343a56f4460ecb615e613 \
+                        sha256  9ce27d8206aaf1189b8675e4929b9117be1d68cdf20159351a35dfcb2e41eea6 \
+                        size    1732022 \
+                    github.com/twmb/murmur3 \
+                        lock    v1.1.5 \
+                        rmd160  1667583ee0bad668085e3d132315c170d76f1b82 \
+                        sha256  480c2e8c3f060d93901b90003dedc1579ce6dff3d68670fec190c3b191a79ffd \
+                        size    12703 \
                     github.com/tscholl2/siec \
                         lock    8da93652b094 \
                         rmd160  6bee962eef761b43725336fadf9264363006c1be \
@@ -99,20 +105,20 @@ go.vendors          gopkg.in/yaml.v3 \
                         sha256  54d6a3300600dd2f5e444f6d19fe1f91e1174329cdfff1d50dae837689214a68 \
                         size    7396 \
                     github.com/schollz/progressbar \
-                        lock    v3.7.6 \
-                        rmd160  233aa0fad947859ef38574768410a5ff0667fdf2 \
-                        sha256  1624654012cd624f4822089ab9c91dc33bd75cd5c975d66bf6fef61ab95ddb2f \
-                        size    603119 \
+                        lock    v3.8.2 \
+                        rmd160  52082c66b1ee9380fd338d48459e9dbef4938b31 \
+                        sha256  9d2b405d60a238105c43e0588a0824d716e6a5ce192158501fa92bc5178dde54 \
+                        size    603280 \
                     github.com/schollz/peerdiscovery \
-                        lock    v1.6.3 \
-                        rmd160  493eccff48d64b13b0a6e0690718b50d19daa05b \
-                        sha256  9bff636e8c717b3a12f4223bfb7d9bd79f6eca4d0b7a9317a3cc46920b04ca0c \
-                        size    8431 \
+                        lock    v1.6.6 \
+                        rmd160  d4f63279c5ac2d01aa5d861196720e90df2f2852 \
+                        sha256  10233aeff39cb39516ef32229fbbd146014c5ed65a1033db1c70924b474d955a \
+                        size    8851 \
                     github.com/schollz/pake \
-                        lock    v3.0.1 \
-                        rmd160  7221cd06ebc802c163120e7198218f47d9b02990 \
-                        sha256  e98c4181851a0dd5d8c601842508449358d5dd330346c36fc0a34b0752eba802 \
-                        size    9391 \
+                        lock    v3.0.2 \
+                        rmd160  e9ab15ebb4c48543250a5e92c4c57f6a1b947be2 \
+                        sha256  966dab344fb391dcb8c6cc80c044080568e810d3270786967dd2910a9fc36d5c \
+                        size    9387 \
                     github.com/schollz/mnemonicode \
                         lock    v1.0.1 \
                         rmd160  3b589e8d02190611df0a94aa681ddfe4a52f9fe3 \
@@ -149,10 +155,10 @@ go.vendors          gopkg.in/yaml.v3 \
                         sha256  0a3c9097c65cf50b9dfe8150adf2f096f9e62b36200759459969d3b9ee3a20fe \
                         size    4679 \
                     github.com/mattn/go-runewidth \
-                        lock    v0.0.12 \
-                        rmd160  56fc1bfe9eb51e2c283d005ac369b3757ecae355 \
-                        sha256  63f20c04796f9f991a67f7ccf0e09c418b8e454d5cbd424943a5ade2f0065e6e \
-                        size    17358 \
+                        lock    v0.0.13 \
+                        rmd160  e177edb4dc4702ae2b23704934ff31cc6561bbd0 \
+                        sha256  dcd3ccbd956a6f53bc106b79489d0303a237c21d858d23250e3e1d7284b72b86 \
+                        size    17363 \
                     github.com/kr/text \
                         lock    v0.1.0 \
                         rmd160  0b3c78459e227170a3b80a0103d87a3eef77ed88 \
@@ -164,10 +170,10 @@ go.vendors          gopkg.in/yaml.v3 \
                         sha256  f6c3f89667c63e5b7f1fc6ee2c06b6a6bfdce88f3a965ccd395b64c6f95c9a47 \
                         size    8553 \
                     github.com/kalafut/imohash \
-                        lock    v1.0.0 \
-                        rmd160  a2f278945a0c7cca1d4f7acd40eae32394d13da2 \
-                        sha256  7b0577dbbe38104667a0479e5b1e60b5dd975237de159973e4454b4a9674808f \
-                        size    7216 \
+                        lock    v1.0.2 \
+                        rmd160  cb84762c189a815fd4289cc9c507a9ff0607ac2d \
+                        sha256  5ac0876be82edbf3fa948f41d5eadc6ea750dce01120b162c91121c92e40ae6c \
+                        size    7241 \
                     github.com/denisbrodbeck/machineid \
                         lock    v1.0.1 \
                         rmd160  c782c29a666ff8e4ad93945389ca9c395754c2c4 \

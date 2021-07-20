@@ -2,7 +2,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/kubernetes/kops 1.20.0 v
+go.setup            github.com/kubernetes/kops 1.21.0 v
 revision            0
 go.package          k8s.io/kops
 
@@ -17,11 +17,11 @@ installs_libs       no
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  758db133fc56a036d33cee78c287fee95c671191 \
-                    sha256  588717f085c16e225286e261c3a17737e040602849112db25af5eb558db1377a \
-                    size    24998245
+checksums           rmd160  761e28ecf17bb3c15e27e9b43d3a0a0290eb11ca \
+                    sha256  b6246cc58e5ad2c9566238bbe99ba8ba1e9593b016336ba5dd6320f66040ac40 \
+                    size    27394827
 
-depends_run         port:kubectl-1.20
+depends_run         port:kubectl-1.21
 
 build.cmd           make
 build.target        all
@@ -41,4 +41,5 @@ destroot {
         {*}[glob ${worksrcpath}/.build/local/*] ${destroot}${prefix}/bin
 }
 
-github.livecheck.regex {([0-9.]+)}
+github.livecheck.regex  {([0-9.]+)}
+github.tarball_from     archive

@@ -5,7 +5,7 @@ PortGroup               cmake 1.1
 PortGroup               compiler_blacklist_versions 1.0
 PortGroup               github 1.0
 
-github.setup            jupyter-xeus xeus 1.0.1
+github.setup            jupyter-xeus xeus 1.0.4
 revision                0
 categories              devel science
 license                 BSD
@@ -17,9 +17,9 @@ long_description        {*}${description} It takes the burden of implementing th
                         the interpreter part of the kernel.
 platforms               darwin
 
-checksums               rmd160  9a1846cd747f11ab385c6e842fa96578029e395a \
-                        sha256  9d28272dc639943ef5a6e96bbc912a73ab46218d787152d894602113fe4d0e94 \
-                        size    5429762
+checksums               rmd160  45a53e16bb0e8b6439c500c9986d1e9567ede751 \
+                        sha256  701583209c4bf56cfc455f96a77be46634cc5e076484b46698860ef5dbc67e19 \
+                        size    5430462
 
 compiler.cxx_standard   2014
 compiler.blacklist-append {clang < 900}

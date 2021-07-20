@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/tektoncd/cli 0.17.2 v
+go.setup            github.com/tektoncd/cli 0.20.0 v
 name                tektoncd-cli
 revision            0
 
@@ -24,13 +24,19 @@ installs_libs       no
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  5130c3a749662d9e4d404ab901fea9e9afa5875a \
-                    sha256  aa807c11afdd4e9a3299f8f1860b360ee5666be74ebe99ffcf43e4771d0a0b06 \
-                    size    8698981
+checksums           rmd160  45e0910c48e27a900497cef437c70e96f262d90c \
+                    sha256  91ef920cc37fd58479304ec104d4233a358f123ea2919cd8e111cd28aec7ce82 \
+                    size    9181075
+
+github.tarball_from archive
 
 patch {
     # Comment out build commands for Linux and Windows
     reinplace -E "s/(GOOS=(linux|windows) GOARCH=(amd64|386).*)/# \\1/g" \
+        ${worksrcpath}/Makefile
+
+    # Convert the arm64 target from Linux to Darwin
+    reinplace -E "/GOOS=linux GOARCH=arm64/ s/linux/darwin/g" \
         ${worksrcpath}/Makefile
 }
 

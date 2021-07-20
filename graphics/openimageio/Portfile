@@ -6,9 +6,10 @@ PortGroup               qt5 1.0
 PortGroup               cmake 1.1
 PortGroup               active_variants 1.1
 PortGroup               compiler_blacklist_versions 1.0
+PortGroup               boost 1.0
 
-github.setup            OpenImageIO oiio 2.1.17.0
-revision                4
+github.setup            OpenImageIO oiio 2.1.17.0 v
+revision                6
 name                    openimageio
 categories              graphics
 license                 BSD
@@ -27,13 +28,14 @@ compiler.cxx_standard   2014
 # http://lists.llvm.org/pipermail/llvm-bugs/2013-November/031552.html
 # Seen on OSX 10.9 and older.
 compiler.blacklist-append {clang < 700}
-# error: thread-local storage is not supported for the current target
-compiler.blacklist-append {clang < 800}
 # OpenVDB header files use C++14 features
 configure.args-append   -DCMAKE_CXX_STANDARD=14
 
 compiler.thread_local_storage yes
 
+# When updating this port to a new version, please switch to standard
+# use of the github portgroup by removing the following three lines and
+# replacing them with "github.tarball_from archive".
 github.master_sites     ${github.homepage}/archive
 distname                Release-${version}
 worksrcdir              oiio-Release-${version}
@@ -52,7 +54,6 @@ configure.args-append   -DBUILD_MISSING_DEPS=OFF \
 depends_lib-append      port:robin-map \
                         port:zlib \
                         port:bzip2 \
-                        port:boost \
                         port:libpng \
                         port:tiff \
                         port:ilmbase \
@@ -122,7 +123,10 @@ configure.args-append       -DOpenJpeg_ROOT=${prefix}
 depends_lib-append          port:opencolorio
 
 #configure.args-append       -DUSE_OPENCV=OFF
-depends_lib-append          port:opencv
+set opencv_ver 4
+depends_lib-append          port:opencv${opencv_ver}
+configure.args-append       -DOpenCV_INCLUDE_DIR=${prefix}/include/opencv${opencv_ver} \
+                            -DOpenCV_ROOT=${prefix}/lib/opencv${opencv_ver}
 
 #configure.args-append       -DUSE_FREETYPE=OFF
 depends_lib-append          port:freetype
@@ -152,5 +156,3 @@ depends_lib-append          port:dcmtk
 
 #configure.args-append       -DUSE_WEBP=OFF
 depends_lib-append          port:webp
-
-livecheck.regex             archive/Release-(\\d+(?:\\.\\d+)*)${extract.suffix}

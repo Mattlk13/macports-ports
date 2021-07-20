@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                name-that-hash
-version             1.7.2
+version             1.10.0
 revision            0
 categories-prepend  security
 platforms           darwin
@@ -24,14 +24,13 @@ long_description    Don't know what type of hash it is? Name \
 
 homepage            https://nth.skerritt.blog
 
-checksums           rmd160  03a2b3652b34896e3ae37e4102de5581634a7fe0 \
-                    sha256  116c7d38de2c1d4fbb5ac13d312779e10e59957fb603fa915f37e0259c813d5f \
-                    size    25957
+checksums           rmd160  2937ae1e8fb2ab8308366b6303c3b6f470b4202d \
+                    sha256  aabe1a3e23f5f8ca1ef6522eb1adcd5c69b5fed3961371ed84a22fc86ee648a2 \
+                    size    27273
 
 depends_lib-append \
     port:py${python.version}-setuptools
 
 depends_run-append \
     port:py${python.version}-click \
-    port:py${python.version}-loguru \
     port:py${python.version}-rich

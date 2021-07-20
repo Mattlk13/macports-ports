@@ -93,20 +93,17 @@ if {$subport eq $name || $subport eq "emacs-app"} {
 if {$subport eq "emacs-devel" || $subport eq "emacs-app-devel"} {
     # Need openat()
     PortGroup       legacysupport 1.1
+
     legacysupport.newest_darwin_requires_legacy 13
 
-    # When bumping
-    # - be sure to update git.branch for the nativecomp variant as well
-    # - be sure to choose a date that exists for the native-comp branch as well
-    # This should no longer be required after native-comp is merged into master
-    # (expected in late April 2021)
-    set date        2021-04-22
+    set date        2021-06-27
     epoch           4
     version         [string map {- {}} ${date}]
+    revision        0
 
     fetch.type      git
     git.url         --shallow-since=${date}T00:00:00 https://github.com/emacs-mirror/emacs.git
-    git.branch      eadf4cff7cff116d73f007dcfb1d636e9938df51
+    git.branch      9060fbd3b5cd3ccae5ef88a0204332b75af94532
 
     # --shallow-since needs a newer version of git than on some older systems
     # So use MacPorts version
@@ -120,29 +117,19 @@ if {$subport eq "emacs-devel" || $subport eq "emacs-app-devel"} {
     livecheck.type none
 
     variant nativecomp description {Builds emacs with native compilation support} {
-        git.url-prepend  --branch feature/native-comp
-        git.branch       062e5994802bbe634bae7f1aef99f65daf1ec44e
+        depends_lib-append       port:gcc11
 
-        depends_build-append     port:coreutils
-        depends_lib-append       port:gcc10
-
-        configure.install        ${prefix}/bin/ginstall
         configure.args-append    --with-native-compilation
 
-        compiler.cpath-prepend   ${prefix}/include/gcc10
+        compiler.cpath-prepend   ${prefix}/include/gcc11
         compiler.library_path-prepend \
-                                 ${prefix}/lib/gcc10
+                                 ${prefix}/lib/gcc11
 
         build.args-append        NATIVE_FULL_AOT=1 \
             {BYTE_COMPILE_EXTRA_FLAGS='--eval "(setq comp-speed 2)"'}
-
-        if {$subport eq "emacs-app-devel"} {
-            post-patch {
-                reinplace {s|^ELN_DESTDIR =.*|ELN_DESTDIR="${ns_appbindir}/../"|g} \
-                    Makefile.in
-            }
-        }
     }
+
+    default_variants-append +nativecomp
 } else {
     livecheck.type  regex
     livecheck.url   https://ftp.gnu.org/gnu/emacs/?C=M&O=D
@@ -274,7 +261,7 @@ if {$subport eq "emacs-app" || $subport eq "emacs-app-devel"} {
         configure.args-append  --with-rsvg
     }
 
-    default_variants +rsvg
+    default_variants-append +rsvg
 }
 
 if {$subport eq $name || $subport eq "emacs-devel"} {

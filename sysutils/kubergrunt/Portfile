@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           golang 1.0
 PortGroup           legacysupport 1.1
 
-go.setup            github.com/gruntwork-io/kubergrunt 0.6.13 v
+go.setup            github.com/gruntwork-io/kubergrunt 0.7.2 v
 revision            0
 
 description         Kubergrunt is a standalone go binary with a collection of \
@@ -39,7 +39,8 @@ destroot {
     xinstall -m 755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
 }
 
-checksums           ${distname}${extract.suffix} \
-                    rmd160  4aa479b3091c425694fb46c95319594adefdd204 \
-                    sha256  b7bc075a8b0728ce7a82332676e71dfe77ce2d86a10ed34f7b23f9fd09cd00b1 \
-                    size    118421
+github.tarball_from archive
+
+checksums           rmd160  4689bf8ec932bea31168294cf1a09ed50da34b1e \
+                    sha256  0e001d8e455b7c6b54d76c6873e269ac80c03cc57d63266f907d1f3d3ed23354 \
+                    size    120358

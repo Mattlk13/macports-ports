@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-astroid
-version             2.5.3
+version             2.6.2
 revision            0
 
 categories-append   devel
@@ -26,9 +26,9 @@ long_description    The aim of this module is to provide a common \
 
 homepage            https://github.com/pycqa/astroid
 
-checksums           rmd160  0de443b3564fe605f53c29ed90343325c0ac6fc6 \
-                    sha256  ad63b8552c70939568966811a088ef0bc880f99a24a00834abd0e3681b514f91 \
-                    size    317721
+checksums           rmd160  f9a12871c8db54e490a94c4cebae938103041c5f \
+                    sha256  38b95085e9d92e2ca06cf8b35c12a74fa81da395a6f9e65803742e6509c05892 \
+                    size    187749
 
 if {${name} ne ${subport}} {
     depends_build-append \
@@ -83,10 +83,12 @@ if {${name} ne ${subport}} {
     test.target
     test.env            PYTHONPATH=${worksrcpath}/build/lib
 
-    post-destroot {
-        xinstall -m 755 -d ${destroot}${prefix}/share/doc/${subport}
-        xinstall -m 644 -W ${worksrcpath} ChangeLog README.rst \
-            ${destroot}${prefix}/share/doc/${subport}
+    if {${python.version} < 36} {
+        post-destroot {
+            xinstall -m 0755 -d ${destroot}${prefix}/share/doc/${subport}
+            xinstall -m 0644 -W ${worksrcpath} README.rst \
+                ${destroot}${prefix}/share/doc/${subport}
+        }
     }
 
     livecheck.type      none

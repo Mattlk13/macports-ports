@@ -10,11 +10,11 @@ legacysupport.newest_darwin_requires_legacy 10
 
 # Remember to update libvirt and py-libvirt at the same time.
 name                libvirt
-version             7.2.0
+version             7.5.0
 revision            0
-checksums           rmd160  903578fbd89d0648667857d0d81670a7b4a050b5 \
-                    sha256  01f459d0c7ba5009622a628dba1a026200e8f4a299fea783b936a71d7e0ed1d0 \
-                    size    8661052
+checksums           rmd160  27d5bc28c6803dba347d142fed60c50db496b0f4 \
+                    sha256  90107b49032c2f3022c84076c649135187fbc70c8efd16427c6c4b6d613c2895 \
+                    size    8642788
 
 categories          sysutils
 license             LGPL-2.1+
@@ -34,6 +34,9 @@ set python_branch   3.9
 set python_version  [string map {. {}} ${python_branch}]
 
 depends_build-append \
+                    port:gmake \
+                    port:gsed \
+                    port:grep \
                     port:bash-completion \
                     port:pkgconfig \
                     port:python${python_version} \

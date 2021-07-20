@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           qmake5 1.0
 
-github.setup        radareorg iaito 5.2.1
+github.setup        radareorg iaito 5.3.1
 revision            0
 
 categories          devel
@@ -21,9 +21,9 @@ long_description    iaito (formerly Cutter) is a free and open-source reverse en
 
 homepage            https://www.radare.org/n/cutter.html
 
-checksums           rmd160  352623d19d91df2cf4b6e3afe0a4e45b1c961e06 \
-                    sha256  8ac24f032d670f723e41cd5e94cbbf7b999b31254184323475838226c4096257 \
-                    size    2749130
+checksums           rmd160  1c2eb4693f82314e4eb43dcafdf5bef6a4df54e5 \
+                    sha256  68971bf1957a3463d415681ba72a1b85240bc0c32029cab6bcd8a1277426f318 \
+                    size    2806153
 
 depends_lib-append  port:radare2
 qt5.depends_component \
@@ -54,6 +54,7 @@ proc python-depends {python_branch} {
                             CONFIG+=IAITO_ENABLE_PYTHON_BINDINGS \
                             INCLUDEPATH+=${python_framework}/Versions/${python_branch}/include/python${python_branch}/ \
                             LIBS+="-L${python_framework}/Versions/${python_branch}/lib -lpython${python_branch}" \
+                            LIBS+=-F${frameworks_dir} \
                             QMAKE_RPATHDIR+=${python_framework}/Versions/${python_branch}/lib/python${python_branch}/site-packages/shiboken2/ \
                             QMAKE_RPATHDIR+=${python_framework}/Versions/${python_branch}/lib/python${python_branch}/site-packages/PySide2/ \
                             PYTHON_FRAMEWORK_DIR=${python_framework} \
@@ -63,11 +64,6 @@ proc python-depends {python_branch} {
                             PYSIDE_INCLUDEDIR=${python_framework}/Versions/${python_branch}/lib/python${python_branch}/site-packages/PySide2/include/ \
                             PYSIDE_LIBRARY=${python_framework}/Versions/${python_branch}/lib/python${python_branch}/site-packages/PySide2/libpyside2.cpython-*-darwin.*.dylib \
                             PYSIDE_TYPESYSTEMS=${python_framework}/Versions/${python_branch}/lib/python${python_branch}/site-packages/PySide2/typesystems
-
-        post-patch {
-            reinplace "s|cutterbindings_python.h|iaitobindings_python.h|g" ${worksrcpath}/src/plugins/PluginManager.cpp
-            reinplace "s|SBK_CUTTERPLUGIN_IDX|SBK_IAITOPLUGIN_IDX|g" ${worksrcpath}/src/plugins/PluginManager.cpp
-        }
 
         pre-destroot {
             move ${worksrcpath}/iaito.app/Contents/MacOS/iaito ${worksrcpath}/iaito.app/Contents/MacOS/iaito.bin

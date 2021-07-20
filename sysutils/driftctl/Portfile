@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/cloudskiff/driftctl 0.7.1 v
+go.setup            github.com/cloudskiff/driftctl 0.12.0 v
 revision            0
 
 homepage            https://driftctl.com
@@ -21,9 +21,9 @@ license             Apache-2
 platforms           darwin
 installs_libs       no
 
-checksums           rmd160  5681e400b642a6d054a62d5d6e5e7189421f09fc \
-                    sha256  6d52c04a273d27ab21e8321f2ce09a9b4562b50b978b24f510e01d79d0164287 \
-                    size    18589641
+checksums           rmd160  06a5ef80157e4704cbb567d13d12ad3c6f81ee49 \
+                    sha256  8fb57c3268c2c6a85a496b6464e438b9f8743f78b21ac1b8b13950f127aa903b \
+                    size    15459025
 
 depends_build-append port:gox
 
@@ -50,3 +50,5 @@ destroot {
     xinstall -m 755 ${worksrcpath}/bin/${name}_${os.platform}_${goarch} \
         ${destroot}${prefix}/bin/${name}
 }
+
+github.tarball_from archive

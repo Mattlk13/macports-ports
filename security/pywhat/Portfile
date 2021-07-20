@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                pywhat
+version             3.2.0
+revision            0
+categories-prepend  security
+platforms           darwin
+license             GPL-3
+supported_archs     noarch
+
+python.default_version \
+                    39
+
+maintainers         {@harens gmail.com:harensdeveloper} \
+                    openmaintainer
+
+description         pyWhat easily lets you identify emails, IP addresses, and more
+long_description    {*}${description}. Feed it a .pcap file or some text and it'll tell \
+                    you what it is!
+
+homepage            https://github.com/bee-san/pyWhat
+
+checksums           rmd160 533e39ba38313f5de6d96470185a4073d5de7e9e \
+                    sha256 48d15667949976e1f385dc1d96ce71e34c55997d51d45189f7770811f7ac11d1 \
+                    size   45473
+
+depends_lib-append  port:py${python.version}-setuptools
+
+depends_run-append  port:py${python.version}-click \
+                    port:py${python.version}-rich \
+                    port:name-that-hash

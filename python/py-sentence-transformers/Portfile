@@ -4,8 +4,8 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           python 1.0
 
-github.setup        UKPLab sentence-transformers 1.0.4 v
-revision            1
+github.setup        UKPLab sentence-transformers 1.2.0 v
+revision            0
 name                py-${github.project}
 
 categories-append   textproc
@@ -30,11 +30,9 @@ long_description    This framework provides an easy method to compute \
                     of custom embeddings models, to achieve maximal \
                     performance on your specific task.
 
-homepage            https://github.com/UKPLab/sentence-transformers
-
-checksums           rmd160  c14a7d97e2fb67815eba36b0fe39b8a0c5c1faeb \
-                    sha256  dbfed0576ac62b882ad2be3a7e4df8f06a0278520f6c98c1ff0e06b9f1e593d1 \
-                    size    14407175
+checksums           rmd160  f49e89ca2a48e9cab332bcef50ae5cd814759199 \
+                    sha256  caad36e867e42e39a0a982beb57578165552d30649d6c04194019b3c7cdfbc1a \
+                    size    14657101
 
 python.versions     38 39
 

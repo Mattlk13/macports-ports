@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-black
-version             20.8b1
+version             21.6b0
 revision            0
 
 platforms           darwin
@@ -28,15 +28,13 @@ long_description \
 
 homepage            https://${python.rootname}.readthedocs.io/
 
-checksums           rmd160  63de27671405a15165325731e0b74e4bfe1be80d \
-                    sha256  1c02557aa099101b9d21496f8a914e9ed2222ef70336404eeeac8edba836fbea \
-                    size    1096433
+checksums           rmd160  78bae9cd88df14bae2f5f66ea4a760e33bde3112 \
+                    sha256  dc132348a88d103016726fe360cb9ede02cecf99b76e3660ce6c596be132ce04 \
+                    size    1144008
 
 python.versions     36 37 38 39
 
 if {${subport} ne ${name}} {
-    patchfiles      patch-tests.diff
-
     depends_build-append \
                     port:py${python.version}-setuptools \
                     port:py${python.version}-setuptools_scm
@@ -58,6 +56,9 @@ if {${subport} ne ${name}} {
 
     depends_run-append \
                     port:black_select
+
+    depends_test-append \
+                    port:py${python.version}-pytest
 
     test.run        yes
 

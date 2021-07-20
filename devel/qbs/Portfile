@@ -2,30 +2,35 @@
 
 PortSystem          1.0
 PortGroup           qmake5 1.0
+PortGroup           compiler_blacklist_versions 1.0
 
 name                qbs
-version             1.18.0
+version             1.19.1
 revision            0
 
 categories          devel
 platforms           darwin
 license             LGPL-2.1
 maintainers         {@jobor qt.io:joerg.bornemann} openmaintainer
-description         Build tool that helps simplify the build process for developing projects across multiple platforms.
-long_description    Qbs is a tool that helps simplify the build process for developing projects across multiple platforms.
+description         build tool that helps simplify the build process for \
+                    developing projects across multiple platforms.
+long_description    ${name} is {*}${description}
 
 homepage            https://wiki.qt.io/Qbs
 distname            qbs-src-${version}
 master_sites        https://download.qt.io/official_releases/qbs/${version}/
 
-checksums           rmd160  3a5b5538110343371b7822aaaa09d4dbe7949b65\
-                    sha256  3d0211e021bea3e56c4d5a65c789d11543cc0b6e88f1bfe23c2f8ebf0f89f8d4\
-                    size    4921432
+checksums           rmd160  b57716608e376e5d491f2af9bb700fe470082a1f \
+                    sha256  aab52c9eb604f029d7c504fe0e789e06d7811e33b3aaa8059460118aa8ff17a4 \
+                    size    4961984
 
 qt5.depends_component qtscript
 qt5.min_version     5.14.0
 
 compiler.cxx_standard 2017
+# requires std::optional, above is not enough :(
+# https://github.com/macports/macports-base/pull/179
+compiler.blacklist-append {clang < 1001}
 
 configure.post_args QBS_INSTALL_PREFIX=${prefix} \
                     CONFIG+=qbs_disable_rpath \

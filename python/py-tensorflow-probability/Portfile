@@ -56,13 +56,7 @@ if {${name} ne ${subport}} {
                     port:py${python.version}-pytest
 
     # Use correct python
-    post-extract {
-        xinstall -d ${workpath}/bin
-        ln -s ${python.bin} ${workpath}/bin/python
-        ln -s ${python.bin} ${workpath}/bin/python3
-    }
-    build.env-append \
-                    "PATH=${workpath}/bin:$env(PATH)"
+    bazel.python_version ${python.branch}
 
     bazel.build_target \
                     :pip_pkg

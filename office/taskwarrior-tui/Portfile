@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           cargo 1.0
 
-github.setup        kdheepak taskwarrior-tui 0.13.12 v
+github.setup        kdheepak taskwarrior-tui 0.13.26 v
 revision            0
 
 description         A terminal user interface for taskwarrior
@@ -17,16 +17,44 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 license             MIT
 
-checksums           rmd160  aad2dcb2805eaf1ec8f64ae61d148c49ceb2f5a2 \
-                    sha256  8d6e32e38c302a971dc114a3eb123e0431390404e74b2c7a9cbd366b9307b028 \
-                    size    58877
+checksums           rmd160  22786de72c596d2cfdc80f779dc020caaad34595 \
+                    sha256  3941ac3d250f2b0a8521e62aa61bc4f1d4b5833fb7ce6592425f1e0439c9efc9 \
+                    size    62796
 
 build.pre_args      --release -v -j${build.jobs}
 
+depends_build-append \
+                    port:git
+
 depends_run-append  port:task
+
+build.env-append    CARGO_NET_GIT_FETCH_WITH_CLI=true
 
 destroot {
     xinstall -m 755 \
         ${worksrcpath}/target/[cargo.rust_platform]/release/${name} \
         ${destroot}${prefix}/bin/
 }
+
+# Build without man-page, because pandoc cannot be built without a stack,
+# which arm64 does not yet support.
+#
+#   Error: Cannot install pandoc for the arch 'arm64' because
+#   Error: its dependency stack only supports the arch 'x86_64'.
+#
+if { !(${configure.build_arch} eq "arm64") } {
+    depends_build-append \
+                    port:pandoc
+
+    post-build {
+        system -W ${worksrcpath}/docs "pandoc ${name}.1.md --standalone \
+        --to=man -o '${name}.1'"
+    }
+
+    post-destroot {
+        xinstall -m 644 ${worksrcpath}/docs/${name}.1 \
+            ${destroot}${prefix}/share/man/man1
+    }
+}
+
+github.tarball_from archive

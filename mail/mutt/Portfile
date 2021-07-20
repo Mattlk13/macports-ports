@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                mutt
-version             2.0.6
+version             2.1.0
 categories          mail
 platforms           darwin
 license             GPL-2+
@@ -21,9 +21,9 @@ master_sites        https://bitbucket.org/mutt/mutt/downloads/
 
 # Does not conflict with neomutt (without the 'mutt' variant)
 
-checksums           rmd160  af079e3d135555951860c1dfc2cf5294f7b2b715 \
-                    sha256  81e31c45895fd624747f19106aa2697d2aa135049ff2e9e9db0a6ed876bcb598 \
-                    size    5294825
+checksums           rmd160  3502e9d877f13fdf19346a438317a40164bc000b \
+                    sha256  80835bbcce920bccf4fc99676eda9e83f03a929b4022eada931d721ede330d37 \
+                    size    5405519
 
 depends_lib         port:gettext \
                     port:libiconv \

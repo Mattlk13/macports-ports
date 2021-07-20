@@ -1,9 +1,9 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
+PortGroup           legacysupport 1.1
 PortGroup           makefile 1.0
 PortGroup           github 1.0
-PortGroup           legacysupport 1.1
 
 # strnlen
 legacysupport.newest_darwin_requires_legacy 10
@@ -16,12 +16,15 @@ maintainers         {ra1nb0w @ra1nb0w} openmaintainer
 description         piHPSDR is an HPSDR application designed for low power boards, like Raspberry.
 long_description    ${description}
 
-github.setup        dl1ycf pihpsdr 4329de41e30570f2e5702be63234de03fcbbd20f
-version             20210330-[string range ${github.version} 0 7]
-checksums           rmd160  60636d93f45d92f9e305d954a595f8c2de69e784 \
-                    sha256  ee4cf0fccbfc067e9eabeb09ef0fced24324b7bb9a6da494aaf3625279f72104 \
-                    size    114572726
+github.setup        dl1ycf pihpsdr 5eef8dc91921e89cf20e0b738d9f23199de755f1
+version             20210610-[string range ${github.version} 0 7]
+checksums           rmd160  4f3ad6eb5663cb5aa119623198bdeb8140d65031 \
+                    sha256  aa36ab20aba793aa2ec5a55a00eb9eac6382c2b685a2b28fd68f4b551bd1e0ef \
+                    size    114592625
 revision            0
+
+patchfiles-append \
+    0001-add-remote-audio-output-option-for-each-RX.patch
 
 compiler.c_standard 1999
 
@@ -41,8 +44,12 @@ depends_lib-append \
     port:curl
 
 use_configure       no
-build.args-append   -f Makefile.mac
 makefile.override   CFLAGS LDFLAGS
+
+build.args-append \
+    GPIO_INCLUDE= \
+    LOCALCW_INCLUDE=LOCALCW \
+    STEMLAB_DISCOVERY=STEMLAB_DISCOVERY_NOAVAHI
 
 pre-configure {
     # fix image path
@@ -54,13 +61,17 @@ variant soapysdr description "Enable SoapySDR support" {
     depends_lib-append \
         port:SoapySDR
 
-    patchfiles-delete \
-        disable-soapysdr.patch
+    build.args-append \
+        SOAPYSDR_INCLUDE=SOAPYSDR
 }
 
 variant window1440x900 description "Enable 1440x900 resolution on the main window" {
     patchfiles-append \
        largewindow-1440x900.patch
+}
+
+variant native description "Native CPU flags" {
+    configure.cflags-append -march=native
 }
 
 destroot {

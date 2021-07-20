@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                npm7
-version             7.10.0
+version             7.20.0
 revision            0
 categories          devel
 platforms           darwin
@@ -27,18 +27,18 @@ extract.suffix      .tgz
 
 # Please keep the sha1 - users can use it to validate sha values
 # published on npmjs.org for the package
-checksums           sha1    8d164a30f6065e479df255f8e890d1e932860695 \
-                    rmd160  7ff993b256aefbaa9d956ce5f7d8ff501b08167d \
-                    sha256  a8e88cd338da1ba283d857fc4e9b5ac27d8a42e248f1beb522110d14a94f34c2 \
-                    size    3454441
+checksums           rmd160  b323207ba3cd90cf21835977472ef2512b0dc0c2 \
+                    sha1    06e79247c8836cbd1dee07a6bc380db624f89c5b \
+                    sha256  5efb2c5b71ea9d1a6a3743d20842915545b979dab8d3c7e0b1522c3b02dd291c \
+                    size    3223037
 
 worksrcdir          "package"
 
-depends_lib         path:bin/node:nodejs15
+depends_lib         path:bin/node:nodejs16
 
 platform darwin {
     if {${os.major} < 13} {
-        depends_lib-replace path:bin/node:nodejs15 path:bin/node:nodejs8
+        depends_lib-replace path:bin/node:nodejs16 path:bin/node:nodejs8
     }
 }
 

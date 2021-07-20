@@ -36,7 +36,8 @@ checksums           rmd160  d00da1f7f1fb620c7fac28d95858bb734db78bed \
 
 minimum_xcodeversions {9 3.1}
 
-depends_build       port:pkgconfig
+depends_build       port:gtk-doc \
+                    path:bin/pkg-config:pkgconfig
 
 depends_lib         port:atk \
                     path:lib/pkgconfig/pango.pc:pango \
@@ -58,6 +59,9 @@ legacysupport.newest_darwin_requires_legacy 10
 use_autoreconf      yes
 autoreconf.args     -fvi
 
+# OS X 10.11 and earlier does not have NSEventTypeTabletProximity and the version check macro is broken
+# see https://gitlab.gnome.org/GNOME/gtk/-/issues/3592
+patchfiles   patch-gdk_quartz-10.11_compat.diff
 
 # gtk3 +quartz uses instancetype which is not available
 # before approximately Xcode 4.6 (#49391)
@@ -149,6 +153,9 @@ platform darwin {
         if {[variant_isset quartz] || ![variant_isset x11]} {
             configure.ldflags-append  -framework Cocoa -framework Carbon
         }
+
+        # https://trac.macports.org/ticket/63151
+        configure.args-append --disable-dependency-tracking
     }
 
     if {${os.major} <= 10} {
@@ -241,7 +248,6 @@ if {${universal_possible} && [variant_isset universal]} {
 variant quartz conflicts x11 {
     require_active_variants path:lib/pkgconfig/cairo.pc:cairo quartz
     require_active_variants path:lib/pkgconfig/pango.pc:pango quartz
-    require_active_variants port:gdk-pixbuf2 "" x11
 
     configure.args-append   --enable-quartz-backend
 }

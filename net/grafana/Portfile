@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           golang 1.0
 PortGroup           legacysupport 1.1
 
-go.setup            github.com/grafana/grafana 7.5.2 v
+go.setup            github.com/grafana/grafana 7.5.7 v
 revision            0
 
 homepage            https://grafana.com
@@ -24,9 +24,9 @@ license             Apache-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  55e806f2008efd5bcbed4ead19794c5e45b384e0 \
-                    sha256  f3829af9286f748de3c242e0fc545f4449e616ea583c99d768bd4a23790c0e64 \
-                    size    10887710
+checksums           rmd160  af50ff58a17d78f8d1986c8c45fb16ee20581206 \
+                    sha256  ec1271b5a7202a12cb8046141025ad61aaa42e54425ab40acb7de46461896838 \
+                    size    10926986
 
 github.tarball_from archive
 

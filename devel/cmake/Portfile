@@ -43,11 +43,11 @@ subport cmake-devel {
 
 if {${subport} eq ${name}} {
 
-    gitlab.setup    cmake cmake 3.19.8 v
-    checksums       rmd160  052886bb4ebbc72db12d501eca21ebe7639329d3 \
-                    sha256  25488ebb26b588acd5b63d8ccf3722909b3b2206ab2b2180086a2202fa3fbc3c \
-                    size    7150690
-    revision        0
+    gitlab.setup    cmake cmake 3.20.5 v
+    checksums       rmd160  f0f13ae525878d7929dcc95f322d224e7b47443d \
+                    sha256  54dd3e0dcd64e27ff8442071aacc4f5a9605896b5701de46d76f22d686238eba \
+                    size    7264123
+    revision        1
 
     gitlab.livecheck.regex {([0-9.]+)}
     compiler.cxx_standard 2011
@@ -256,7 +256,7 @@ if {${subport} eq ${name}} {
             }
         }
 
-        set python_branch "[string range ${pyver} 0 end-1].[string index ${pyver} end]"
+        set python_branch "[string index ${pyver} 0].[string range ${pyver} 1 end]"
 
         variant python${pyver} conflicts {*}${other_python_versions} requires docs description "Build documentation using ${python_branch} sphinx" {}
     }
@@ -286,7 +286,7 @@ if {${subport} eq ${name}} {
         foreach pyver ${python_versions} {
             if {!${python_isset}} {
                 set python_isset  [variant_isset python${pyver}]
-                set python_branch "[string range ${pyver} 0 end-1].[string index ${pyver} end]"
+                set python_branch "[string index ${pyver} 0].[string range ${pyver} 1 end]"
             }
         }
 

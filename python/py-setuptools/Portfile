@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-setuptools
-version             54.2.0
+version             57.1.0
 categories-append   devel
 # License status is murky. The current maintainer decided to relicense as
 # MIT, but he doesn't appear to have obtained the permission of previous
@@ -24,9 +24,9 @@ supported_archs     noarch
 
 homepage            https://pypi.org/project/setuptools/
 
-checksums           md5 09f693b5d5ca8bf4fdb1da82f8110a9c \
-                    rmd160 ae5bb69994c6a1772959c764f061621d6c9fa2f4 \
-                    sha256 aa9c24fb83a9116b8d425e53bec24c7bfdbffc313c2159f9ed036d4a6dd32d7d
+checksums           md5 8e0d477fb7f722ed5b6b7e84a627027d \
+                    rmd160 c984fd312129295ae906183c349335435525cfc1 \
+                    sha256 cfca9c97e7eebbc8abe18d5e5e962a08dcad55bb63afddd82d681de4d22a597b
 
 python.versions     26 27 33 34 35 36 37 38 39
 python.link_binaries no
@@ -38,8 +38,6 @@ if {$subport ne $name} {
         post-destroot {
             ln -s ${python.prefix}/bin/easy_install-${python.branch} ${destroot}${prefix}/bin
         }
-    } else {
-        patchfiles-append   _distutils_spawn.py.patch
     }
 
     if {${python.version} == 35} {

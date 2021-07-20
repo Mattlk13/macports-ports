@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/prometheus/prometheus 2.26.0 v
+go.setup            github.com/prometheus/prometheus 2.28.1 v
 revision            0
 
 homepage            https://prometheus.io
@@ -24,6 +24,7 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 depends_build-append \
+                    port:golangci-lint \
                     port:nodejs15 \
                     port:npm6 \
                     port:promu \
@@ -48,9 +49,9 @@ set prom_share_dir  ${prefix}/share/${name}
 set prom_log_dir    ${prefix}/var/log/${name}
 set prom_log_file   ${prom_log_dir}/${name}.log
 
-checksums           rmd160  d38c37d6ad800db6599b080ca99086011632ca9f \
-                    sha256  d2f5187946198e8d0ef820fb4f7e360d3d1b40587c70f6b7061a3a73b6ce90ab \
-                    size    5618384
+checksums           rmd160  4cf2df4d49de314950039c16ca1d338d9134a83f \
+                    sha256  6500dfe91f8d1ef8e7c064262a66773c2ac90d59a3dc9e3e480bbb29a78a3574 \
+                    size    5673613
 
 add_users           ${prom_user} \
                     group=${prom_user} \

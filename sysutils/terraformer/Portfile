@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           golang 1.0
 PortGroup           legacysupport 1.1
 
-go.setup            github.com/GoogleCloudPlatform/terraformer 0.8.13
+go.setup            github.com/GoogleCloudPlatform/terraformer 0.8.15
 revision            0
 
 description         Generate terraform files from existing infrastructure \
@@ -22,9 +22,9 @@ installs_libs       no
 # Allow deps to be fetched at build time
 build.env-delete    GO111MODULE=off GOPROXY=off
 
-checksums           rmd160  77d8482d4690d254d57343def1a8189d9ebe6edf \
-                    sha256  66ef88dc6b45fd64a69d23a440412105a46bb9f69fb70784b23972c7470e0c64 \
-                    size    331861
+checksums           rmd160  391e93b9591082fb65ad44d631e5cc0489d486e2 \
+                    sha256  46b9c3c0e83c1775d2ce2cf89fbbd4dda82533cdc522a8d33e57f166c4c75808 \
+                    size    347250
 
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
@@ -32,3 +32,5 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
 destroot {
     xinstall -m 755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
 }
+
+github.tarball_from archive

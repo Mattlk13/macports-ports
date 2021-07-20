@@ -8,7 +8,7 @@ name                gimp2
 conflicts           gimp2-devel gimp3-devel
 # please remember to update the gimp metapackage to match
 version             2.10.22
-revision            2
+revision            3
 set branch          [join [lrange [split ${version} .] 0 1] .]
 license             GPL-3+
 categories          graphics
@@ -109,6 +109,9 @@ if {${os.platform} eq "darwin" && ${os.major} < 11} {
 
 use_autoreconf      yes
 autoreconf.args     -fvi
+if {[vercmp [macports_version] 2.6.99] >= 0} {
+configure.checks.implicit_function_declaration.whitelist-append strchr
+}
 
 pre-configure {
     if {[file exists ${prefix}/lib/gtk-2.0/include/gdkconfig.h]} {

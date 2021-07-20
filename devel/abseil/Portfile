@@ -4,11 +4,11 @@ PortSystem          1.0
 PortGroup           cmake 1.1
 PortGroup           github 1.0
 
-github.setup        abseil abseil-cpp 20210324.0
+github.setup        abseil abseil-cpp 20210324.2
 name                abseil
 revision            0
 categories          devel
-maintainers         nomaintainer
+maintainers         {outlook.de:judaew @judaew} openmaintainer
 license             Apache-2
 
 description         Abseil - C++ Common Libraries
@@ -20,9 +20,9 @@ long_description    Abseil is an open-source collection of C++ library \
 
 platforms           darwin
 
-checksums           rmd160  f890fe735dbeb376d1ad7ba1402bf4ebf338b4ec \
-                    sha256  34db81ed304a8e0524f13e68cf8bebb55db22461a4bc7fefbb35fa425c9f3006 \
-                    size    1774030
+checksums           rmd160  a0dcd7d6d432a9d87971bacbc86f750b98454666 \
+                    sha256  797ec019a70699178accf635843e61eedf4c01675f7ef8af22f35f50ab1dd026 \
+                    size    1774079
 
 # ignore pre releases
 github.livecheck.regex  {([0-9.]+)}

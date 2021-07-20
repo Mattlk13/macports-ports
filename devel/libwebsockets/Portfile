@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           cmake 1.1
 
-github.setup        warmcat libwebsockets 4.1.6 v
+github.setup        warmcat libwebsockets 4.2.1 v
 revision            0
 categories          devel net
 platforms           darwin
@@ -19,16 +19,18 @@ long_description    \
     CPU and memory resources, and provide fast throughput in both directions \
     as client or server.
 
-checksums           rmd160  ba90d719798b915fa8b38b20ed73102590865838 \
-                    sha256  ff61ba25bf1c9883e46a054d1ad412ed87a621ea1766356bc5d7f96eeb4a22ee \
-                    size    12912436
+checksums           rmd160  88d1e8433453ae88e64e3950ce6328e080f6dc04 \
+                    sha256  c8c04d6c9118aaf642db278767f226e29174cafa5cc658caca72c561418de2c3 \
+                    size    14557189
 
 depends_lib-append  path:lib/libssl.dylib:openssl \
                     port:zlib \
                     port:libev \
                     port:libuv
 
+# Set LWS_BUILD_HASH directly. Otherwise, it will require a git repository.
 configure.args-append \
+                    -DLWS_BUILD_HASH="no_hash" \
                     -DLWS_IPV6=ON \
                     -DLWS_UNIX_SOCK=ON \
                     -DLWS_WITHOUT_TESTAPPS=ON \

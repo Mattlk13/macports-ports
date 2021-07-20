@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/hashicorp/waypoint 0.3.1 v
+go.setup            github.com/hashicorp/waypoint 0.4.1 v
 revision            0
 
 homepage            https://www.waypointproject.io
@@ -23,9 +23,9 @@ long_description    Waypoint allows developers to define their application \
 categories          devel
 license             MPL-2
 
-checksums           rmd160  715e21134a397b64b862334bb9cac6942b3d565b \
-                    sha256  296162bdacc8697004aa89a2b896388e9876c7e17a4132cdd1c2d37ed065b131 \
-                    size    7497903
+checksums           rmd160  450bf95519607ae51029a33cd2e72e8e6904a5f7 \
+                    sha256  556a8e70dfbceab02ca59afdd97549da4cdc00e1b006982fbdeee446fdae0562 \
+                    size    6497058
 
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
@@ -50,4 +50,5 @@ destroot {
     xinstall -m 755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
 }
 
-github.livecheck.regex {([0-9.]+)}
+github.livecheck.regex  {([0-9.]+)}
+github.tarball_from     archive

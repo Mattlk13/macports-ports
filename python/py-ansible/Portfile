@@ -2,9 +2,10 @@
 
 PortSystem          1.0
 PortGroup           python 1.0
+PortGroup           select 1.0
 
 name                py-ansible
-version             3.2.0
+version             3.4.0
 license             GPL-3+
 
 categories-append   sysutils
@@ -18,9 +19,9 @@ homepage            https://github.com/ansible/ansible
 description         SSH-based configuration management and deployment system
 
 distname            ansible-${version}
-checksums           rmd160  2b3589b08ebd5471ce5ddf48b9de5e0048566b3a \
-                    sha256  01774d8b4778844f29920812f0dab7a90c8643e8f826460a941565b2620e5b7d \
-                    size    31263556
+checksums           rmd160  f0ef9c911603cac7e3f8523abf75bfcd51f96ba9 \
+                    sha256  ca34e2c0c3f92cad5e528c94c133e620845feb11cc62f42e98d28271fe5bd924 \
+                    size    31898355
 
 conflicts           ansible
 
@@ -32,16 +33,18 @@ long_description \
     be written in any language and are transferred to managed machines \
     automatically.
 
-python.versions 27 35 36 37 38 39
+python.versions 27 36 37 38 39
 
 if {${name} ne ${subport}} {
     patch {
-        fs-traverse f ${worksrcpath} {
-            if {[file isfile ${f}] && [regexp {\.(py|yml|yaml)$} ${f} match]} {
-                reinplace -q "s#/etc/ansible#${prefix}/etc/ansible#g" ${f}
-                reinplace -q "s#/usr/share/ansible#${prefix}/share/ansible#g" ${f}
-            }
-        }
+        # This is a little ugly, but it works, and it is over 10x faster on
+        # systems with anti-virus than using a foreach (even a foreach limited
+        # to matching files).
+        system -W ${worksrcpath} \
+            "find -E . -type f -regex '.*\.(py|ya?ml)' \
+                  -exec egrep -l '(/etc|/usr/share)/ansible' '{}' '+' |
+             xargs sed -i '' -e 's^/etc/ansible^${prefix}/etc/ansible^g' \
+                       -e 's^/usr/share/ansible^${prefix}/share/ansible^g'"
     }
     depends_lib-append  port:py${python.version}-ansible-base
     livecheck.type  none

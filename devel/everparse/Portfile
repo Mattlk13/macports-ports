@@ -4,9 +4,9 @@ PortSystem          1.0
 PortGroup github    1.0
 
 name                everparse
-github.setup        project-everest everparse 06072a6cbdb2b266a8a754f6d19981301e80c11e
-version             20210113-[string range ${github.version} 0 6]
-revision            0
+github.setup        project-everest everparse 538bda1a6d1320ea6ca145971a2f7875ac9b49a1
+version             20210510-[string range ${github.version} 0 6]
+revision            1
 
 categories          devel
 platforms           darwin
@@ -17,9 +17,9 @@ long_description    EverParse provides LowParse, verified-secure F*/Low* parser 
                     QuackyDucky, an untrusted compiler for generating verified secure parsers from a \
                     message format specification.
 
-checksums           rmd160  8303906fccd1bd316ea4ff6457dd7e24787aa4d2 \
-                    sha256  18eae5bbd394bf6bf18fb081b1cfef7219688506902c04a699dfa01cfd2d954e \
-                    size    813704
+checksums           rmd160  bbabfe2ce5fef9b07253d843e345ab660fe52ad3 \
+                    sha256  dcef346a622fcf33772cb8dd791b086a54906f8021d8a373264ca614d7745880 \
+                    size    855003
 
 depends_lib         port:fstar-devel \
                     port:kremlin-devel \
@@ -48,12 +48,12 @@ pre-patch {
 }
 
 post-patch {
-    foreach {key path_var} {
-        @FSTAR_HOME@        fstar.home
-        @KREMLIN_HOME@      kremlin.home
-        @QD_HOME@           lowparse.home
+    foreach {key path_var subdir} {
+        @FSTAR_HOME@        fstar.home      "/home"
+        @KREMLIN_HOME@      kremlin.home    "/home"
+        @QD_HOME@           lowparse.home   ""
     } {
-        reinplace "s|${key}|[set ${path_var}]/home|g" \
+        reinplace "s|${key}|[set ${path_var}]${subdir}|g" \
             src/3d/ocaml/Batch.ml
     }
 }
@@ -79,6 +79,7 @@ pre-build {
         src/3d
         src/3d/prelude
         tests/lowparse
+        tests/sample0
         tests/sample
         tests/bitfields
         tests/unit

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           makefile 1.0
 
-github.setup        tree-sitter tree-sitter 0.19.4 v
+github.setup        tree-sitter tree-sitter 0.20.0 v
 revision            0
 
 homepage            https://tree-sitter.github.io
@@ -30,10 +30,12 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  62d375478aabfff64e5552300aa0620ab5a153c5 \
-                    sha256  200f3c243c3977217f771f2347c2b04c33200f56f2c54887d50ee5465859ae09 \
-                    size    2869862
+                    rmd160  8563780e6f33137b7d36e7db3abfd379ba866f66 \
+                    sha256  4a8070b9de17c3b8096181fe8530320ab3e8cca685d8bee6a3e8d164b5fb47da \
+                    size    2876764
 
 depends_build-append port:pkgconfig
 
 use_configure       no
+
+github.tarball_from archive

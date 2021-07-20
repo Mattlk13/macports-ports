@@ -54,7 +54,10 @@ pre-configure {
 
     # starting with Xcode 7.0, the SDK for build OS version might not be available
     # see https://trac.macports.org/ticket/53597
-    if {[catch {exec /usr/bin/xcrun --sdk macosx${configure.sdk_version} --show-sdk-path} result]} {
+    #
+    # avoid --show-sdk-path since it is not available on all platforms
+    # see https://github.com/macports/macports-ports/commit/9887e90d69f4265f9056cddc45e41551d7400235#commitcomment-49824261
+    if {[catch {exec /usr/bin/xcrun --sdk macosx${configure.sdk_version} --find ld} result]} {
         configure.sdk_version
     }
 
@@ -104,6 +107,12 @@ pre-configure {
     }
     puts ${cache} "QMAKE_MACOSX_DEPLOYMENT_TARGET=${macosx_deployment_target}"
     puts ${cache} "QMAKE_MAC_SDK=macosx${configure.sdk_version}"
+
+    # https://github.com/qt/qtbase/commit/d64940891dffcb951f4b76426490cbc94fb4aba7
+    # Enable ccache support if active and available in given qt5 version
+    if { [option configure.ccache] && [vercmp ${qt5.version} 5.9.2] >= 0 } {
+        puts ${cache} "CONFIG+=ccache"
+    }
 
     # respect configure.compiler but still allow qmake to find correct Xcode clang based on SDK
     if { ${configure.compiler} ne "clang" } {
@@ -252,6 +261,13 @@ pre-configure {
 
     foreach flag ${qt5.frameworkpaths} {
         puts ${cache} "QMAKE_FRAMEWORKPATH+=${flag}"
+    }
+
+    # Boost PG support
+    if { [info exists boost.version] } {
+        puts ${cache} "QMAKE_CXXFLAGS+=[boost::cxx_flags]"
+        puts ${cache} "QMAKE_LFLAGS+=[boost::ld_flags]"
+        puts ${cache} "BOOST_DIR=[boost::install_area]"
     }
 
     close ${cache}

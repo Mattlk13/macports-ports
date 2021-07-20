@@ -59,7 +59,8 @@ depends_lib                     path:include/turbojpeg.h:libjpeg-turbo \
 
 depends_run                     port:urw-fonts
 
-patchfiles                      implicit.patch
+patchfiles                      implicit.patch \
+                                libtool-tag.patch
 
 configure.args                  --disable-silent-rules \
                                 --with-codegens \
@@ -108,6 +109,9 @@ configure.args                  --disable-silent-rules \
 # Teach glibtool about -stdlib=libc++
 use_autoreconf  yes
 autoreconf.args -fvi
+if {[vercmp [macports_version] 2.6.99] >= 0} {
+configure.checks.implicit_function_declaration.whitelist-append strchr
+}
 
 platform macosx {
     if {${os.major} > 8} {

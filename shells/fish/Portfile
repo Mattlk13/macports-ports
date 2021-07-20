@@ -5,11 +5,11 @@ PortGroup               github 1.0
 PortGroup               cmake 1.1
 PortGroup               legacysupport 1.0
 
-github.setup            fish-shell fish-shell 3.2.2
+github.setup            fish-shell fish-shell 3.3.1
 revision                0
-checksums               rmd160  e24a3f7a3b073bc9295e897bd3103f7ae33702f4 \
-                        sha256  5944da1a8893d11b0828a4fd9136ee174549daffb3d0adfdd8917856fe6b4009 \
-                        size    3411748
+checksums               rmd160  9ec5b3ee590427a9e7d7b4691da13970385ded0f \
+                        sha256  b5b4ee1a5269762cbbe993a4bd6507e675e4100ce9bbe84214a5eeb2b19fae89 \
+                        size    3489152
 use_xz                  yes
 
 name                    fish
@@ -30,6 +30,8 @@ depends_lib             port:libiconv \
                         port:gettext
 
 patchfiles              patch-share_config_fish.diff \
+                        patch-tests-checks-tmux-complete-fish.diff \
+                        patch-tests-checks-tmux-prompt-fish.diff \
                         patch-tests-interactive-fish.diff
 
 post-patch {

@@ -81,6 +81,11 @@ array set crossgcc.versions_info {
         sha256  64f404c1a650f27fc33da242e1f2df54952e3963a49e06e73f6940f3223ac344 \
         size    76692288
     }}
+    11.1.0 {xz {
+        rmd160  083384ca351ea1cb6e04d15425af2103c908edf4 \
+        sha256  4c4a6fb8a8396059241c2e674b85b351c26a5d678274007f076957afa1cc9ddf \
+        size    78877216
+    }}
 }
 
 array set newlib.versions_info {
@@ -108,6 +113,7 @@ proc crossgcc.setup {target version} {
     set crossgcc.version $version
 
     uplevel {
+        PortGroup       compiler_blacklist_versions 1.0
         name            ${crossgcc.target}-gcc
         version         ${crossgcc.version}
         categories      cross devel
@@ -255,6 +261,19 @@ proc crossgcc.setup {target version} {
         # Failed to build with clang from Xcode 4.5
         # fatal error: error in backend: ran out of registers during register allocation
         compiler.blacklist  {clang >= 421 < 422}
+
+        # Section taken from gcc11 Portfile
+        if { ${version} >= 11.0 } {
+            # https://trac.macports.org/ticket/29067
+            # https://trac.macports.org/ticket/29104
+            # https://trac.macports.org/ticket/47996
+            # https://trac.macports.org/ticket/58493
+            compiler.blacklist-append {clang < 800} gcc-4.0 *gcc-4.2 {llvm-gcc-4.2 < 2336.1} {macports-clang-3.[4-7]}
+
+            # https://build.macports.org/builders/ports-10.13_x86_64-builder/builds/105513/steps/install-port/logs/stdio
+            # c++/v1/functional:1408:2: error: no member named 'fancy_abort' in namespace 'std::__1'; did you mean simply 'fancy_abort'?
+            compiler.blacklist-append {clang < 1000}
+        }
 
         universal_variant no
 

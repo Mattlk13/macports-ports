@@ -6,11 +6,11 @@ PortGroup           github 1.0
 PortGroup           qt5 1.0
 PortGroup           app 1.0
 
-github.setup        miek inspectrum 6d284ff7816d72f8164362c8c7e292ffce398e96
-version             20210325
-checksums           rmd160  1bc533c3857c4d399ea5d347e3b8471f2a4fefcb \
-                    sha256  536fdea0ff16ae6cd47c0517f84d9640bc6cd4cd4762ada70066d75a80654763 \
-                    size    110209
+github.setup        miek inspectrum 02157c43210db076a4b371b222943edb70e91e86
+version             20210606-[string range ${github.version} 0 7]
+checksums           rmd160  c94af7040a4c592ff6ed6e2c655d5c2f60ac9e3a \
+                    sha256  3370647ffa97bc3a5e8d6cc60cab7f7c6e1ac8663e712ea7137c0dbf05bcfcbe \
+                    size    110291
 revision            0
 
 categories          science comms
@@ -48,3 +48,8 @@ app.name Inspectrum
 app.executable ${name}
 app.icon ${filespath}/inspectrum.icns
 app.retina yes
+
+# project moved from the lead branch being "master" to "main" ... have
+# to use that for livecheck!
+
+github.livecheck.branch main

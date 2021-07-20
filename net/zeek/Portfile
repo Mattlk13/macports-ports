@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cmake 1.1
 
 name                zeek
-version             4.0.1
+version             4.0.3
 revision            0
 categories          net security
 platforms           darwin
@@ -19,12 +19,12 @@ long_description    {*}${description} Zeek is the new name for the long-establis
                     also often appears in the documentation and distributions.
 
 homepage            https://www.zeek.org/
-master_sites        https://old.zeek.org/downloads/
+master_sites        https://download.zeek.org/
 
 
-checksums           rmd160  bc58497ad0a3009c4c626f2b5bbb013cfedd12f0 \
-                    sha256  659a890f433cb730519966bdc41f1a03fb67e27e94b5d52ad9ee890022a12c3a \
-                    size    29450307
+checksums           rmd160  677cba72f2ec9f5fa74b311feacbaa45aa10e3ba \
+                    sha256  33ee6b2aa96d127b7273ce337552bc7b2abf4910aa7a431dfc9ec606a4e233db \
+                    size    29432987
 
 depends_build-append \
                     port:libgeoip \
@@ -166,5 +166,5 @@ ${prefix}/logs -> ${prefix}/var/log/zeek
 "
 
 livecheck.type      regex
-livecheck.url       ${master_sites}
-livecheck.regex     ${name}-(\[0-9a-z.\]+)${extract.suffix}
+livecheck.url       https://zeek.org/get-zeek/
+livecheck.regex     org/${name}-(\[0-9a-z.\]+)${extract.suffix}

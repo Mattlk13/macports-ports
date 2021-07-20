@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                nano
-version             5.6.1
+version             5.8
 categories          editors
 platforms           darwin freebsd
 license             GPL-3
@@ -19,9 +19,9 @@ long_description \
 homepage            https://www.nano-editor.org
 master_sites        ${homepage}/dist/v[strsed ${version} {/\.[0-9]*$//}]/ gnu
 
-checksums           rmd160  72119e3e32271653d23b4b331418bccd542fc017 \
-                    sha256  0161e19c253d4408f7d42a15d166fc3bd8cc1af492108c172b741855e7b2189c \
-                    size    2957693
+checksums           rmd160  c3f01f067c40003a1d35586d46905c0b911fedaa \
+                    sha256  f47c7407d4d7b780c4a8fa20706ebf5740c0df41dc0e521a536916660bc18ec4 \
+                    size    3038948
 
 depends_lib         port:gettext \
                     port:libiconv \

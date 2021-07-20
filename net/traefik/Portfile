@@ -1,0 +1,70 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           golang 1.0
+
+go.setup            github.com/traefik/traefik 2.4.9 v
+revision            0
+
+categories          net security devel
+maintainers         {outlook.de:judaew @judaew} openmaintainer
+license             MIT
+
+description         The Cloud Native Application Proxy
+long_description    \
+    Traefik (pronounced traffic) is a modern HTTP reverse proxy and load \
+    balancer that makes deploying microservices easy. Traefik integrates with \
+    your existing infrastructure components (Docker, Swarm mode, Kubernetes, \
+    Marathon, Consul, Etcd, Rancher, Amazon ECS, ...) and configures itself \
+    automatically and dynamically. Pointing Traefik at your orchestrator \
+    should be the only configuration step you need.
+
+checksums           rmd160  9e0db65b6ba9ed80ca727e129a92e0f8ebfcd5d9 \
+                    sha256  3ad4d9e317024b386f0fe2efbeb80f8eec29715c27a2d6dc7af557fd090c9dc9 \
+                    size    8422469
+
+depends_build-append \
+                    port:go-bindata
+
+pre-build {
+    system -W ${worksrcpath} "${go.bin} generate"
+}
+
+# FIXME: This port currently can't be built without allowing go mod to fetch
+build.env-delete    GOPROXY=off GO111MODULE=off
+
+build.pre_args-append \
+    -ldflags '-X ${go.package}/v2/pkg/version.Version=${version}'
+build.args          ./cmd/traefik
+
+destroot {
+    xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
+
+    xinstall -d ${destroot}${prefix}/share/examples/${name}
+    xinstall -m 0644 -W ${worksrcpath} \
+        traefik.sample.toml traefik.sample.yml \
+        ${destroot}${prefix}/share/examples/${name}
+
+    xinstall -d ${destroot}${prefix}/etc/${name}
+    destroot.keepdirs ${destroot}${prefix}/etc/${name}
+}
+
+startupitem.create  yes
+startupitem.start   \
+    "${prefix}/bin/${name} --configfile=${prefix}/etc/${name}/traefik.toml"
+startupitem.stop    "kill \$(cat ${prefix}/var/run/${name}.pid) "
+startupitem.pidfile auto ${prefix}/var/run/${name}.pid
+
+notes "
+A config must be created in
+    ${prefix}/etc/traefik/traefik.toml
+
+An example config is
+    ${prefix}/share/examples/traefik/traefik.toml
+
+Launch ${name} as daemon with
+    sudo port load ${name}
+or
+    sudo launchctl load -w \\
+        /Library/LaunchDaemons/org.macports.traefik.plist
+"
